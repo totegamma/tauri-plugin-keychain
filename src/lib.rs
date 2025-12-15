@@ -23,19 +23,11 @@ use mobile::Keychain;
 
 /// Extensions to [`tauri::App`], [`tauri::AppHandle`] and [`tauri::Window`] to access the Keychain APIs.
 pub trait KeychainExt<R: Runtime> {
-  fn get_item(&self) -> &Keychain<R>;
-  fn save_item(&self) -> &Keychain<R>;
-  fn remove_item(&self) -> &Keychain<R>;
+  fn keychain(&self) -> &Keychain<R>;
 }
 
 impl<R: Runtime, T: Manager<R>> crate::KeychainExt<R> for T {
-  fn get_item(&self) -> &Keychain<R> {
-    self.state::<Keychain<R>>().inner()
-  }
-  fn save_item(&self) -> &Keychain<R> {
-    self.state::<Keychain<R>>().inner()
-  }
-  fn remove_item(&self) -> &Keychain<R> {
+  fn keychain(&self) -> &Keychain<R> {
     self.state::<Keychain<R>>().inner()
   }
 }
