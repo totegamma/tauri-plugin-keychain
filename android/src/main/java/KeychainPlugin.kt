@@ -17,7 +17,7 @@ import android.os.Build
 @InvokeArg
 class KeychainOptions {
     var key: String = ""
-    var password: String = ""
+    var password: String? = ""
 }
 
 @TauriPlugin
