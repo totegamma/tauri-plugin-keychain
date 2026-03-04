@@ -6,6 +6,12 @@ export async function getItem(key: string): Promise<string | null> {
   }).then((r) => (r.password ? r.password : null));
 }
 
+export async function hasItem(key: string): Promise<boolean> {
+  return await invoke<{exists: boolean}>('plugin:keychain|has_item', {
+		key,
+  }).then((r) => r.exists);
+}
+
 export async function saveItem(key: string, password: string): Promise<any | null> {
   return await invoke('plugin:keychain|save_item', {
 		key,
