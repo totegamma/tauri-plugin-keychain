@@ -2,9 +2,12 @@
 
 Default permissions for the plugin
 
+#### This default permission set includes the following:
+
 - `allow-get-item`
 - `allow-save-item`
 - `allow-remove-item`
+- `allow-has-item`
 
 ## Permission Table
 
@@ -37,6 +40,32 @@ Enables the get_item command without any pre-configured scope.
 <td>
 
 Denies the get_item command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`keychain:allow-has-item`
+
+</td>
+<td>
+
+Enables the has_item command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`keychain:deny-has-item`
+
+</td>
+<td>
+
+Denies the has_item command without any pre-configured scope.
 
 </td>
 </tr>

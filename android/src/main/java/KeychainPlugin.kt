@@ -57,6 +57,23 @@ class KeychainPlugin(private val activity: Activity): Plugin(activity) {
 		}
 		
 	}
+
+	@Command
+	fun hasItem(invoke: Invoke) {
+		val args = invoke.parseArgs(KeychainOptions::class.java)
+		val accountManager = AccountManager.get(activity.applicationContext)
+
+		val accounts = accountManager.getAccountsByType(accountType)
+		val targetAccount = accounts.firstOrNull { it.name == args.key }
+
+		val exists = if (targetAccount != null) {
+				true
+		} else {
+				val sharedPreferences = deviceProtectedContext.getSharedPreferences("secure_prefs", Context.MODE_PRIVATE)
+				sharedPreferences.contains(args.key)
+		}
+		invoke.resolve(JSObject().apply { put("exists", exists) })
+	}
 	
 	@Command
 	fun saveItem(invoke: Invoke) {

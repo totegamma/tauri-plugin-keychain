@@ -13,6 +13,9 @@ class KeychainArgs: Decodable {
 struct KeychainResponse: Codable {
   let password: String?
 }
+struct KeychainHasResponse: Codable {
+  let exists: Bool
+}
 
 class KeychainPlugin: Plugin {
   @objc public func getItem(_ invoke: Invoke) throws {
@@ -39,6 +42,19 @@ class KeychainPlugin: Plugin {
 		let resp = KeychainResponse(password: password)
 		invoke.resolve(resp)
   }
+
+	@objc public func hasItem(_ invoke: Invoke) throws {
+		let args = try invoke.parseArgs(KeychainArgs.self)
+		let key = args.key
+		let query = [
+				kSecClass: kSecClassGenericPassword,
+				kSecAttrAccount: key,
+				kSecMatchLimit: kSecMatchLimitOne
+		] as CFDictionary
+
+		let status = SecItemCopyMatching(query, nil)
+		invoke.resolve(KeychainHasResponse(exists: status == errSecSuccess))
+	}
 	
 	@objc public func saveItem(_ invoke: Invoke) throws {
 	  let args = try invoke.parseArgs(KeychainArgs.self)

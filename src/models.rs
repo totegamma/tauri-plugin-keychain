@@ -13,3 +13,9 @@ pub struct KeychainRequest {
 pub struct KeychainResponse {
   pub password: Option<String>,
 }
+
+#[derive(Debug, Clone, Default, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct KeychainHasResponse {
+  pub exists: bool,
+}

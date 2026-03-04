@@ -32,6 +32,12 @@ impl<R: Runtime> Keychain<R> {
       .run_mobile_plugin("getItem", payload)
       .map_err(Into::into)
   }
+  pub fn has_item(&self, payload: KeychainRequest) -> crate::Result<KeychainHasResponse> {
+    self
+      .0
+      .run_mobile_plugin("hasItem", payload)
+      .map_err(Into::into)
+  }
   pub fn save_item(&self, payload: KeychainRequest) -> crate::Result<KeychainResponse> {
     self
       .0
